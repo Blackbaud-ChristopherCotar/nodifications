@@ -1,7 +1,7 @@
 var express = require('express')
   , app = express()
   , server = require('http').createServer(app)
-  , io = require('socket.io').listen(server)
+  , io = require('./lib/sockets').listen(server)
   , mongoose = require('mongoose')
   , Schema = mongoose.Schema;
 
@@ -48,14 +48,4 @@ app.get('/', function(req, res){
 app.get('/users', function(req, res){
 	console.log('api request for /users');
 	res.json({user1: ''});
-});
-
-io.sockets.on('connection', function(socket){
-  socket.emit('news', {hello: 'world' });
-  socket.on('my other event', function(data){
-    console.log(data);
-  });
-  setInterval(function(){
-    socket.emit('notification', {type: 'email', url: 'google.com'});
-  }, 2000);
 });
