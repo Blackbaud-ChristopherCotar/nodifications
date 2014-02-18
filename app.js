@@ -55,4 +55,7 @@ io.sockets.on('connection', function(socket){
   socket.on('my other event', function(data){
     console.log(data);
   });
+  setInterval(function(){
+    socket.emit('notification', {type: 'email', url: 'google.com'});
+  }, 2000);
 });
