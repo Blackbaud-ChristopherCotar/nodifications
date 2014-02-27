@@ -34,9 +34,12 @@ app.get('/', function(req, res){
     res.sendfile(__dirname + '/static/index.html');
 });
 
-app.get('/api/nodifications', api.pullAllNodifications);
+app.get('/api/nodifications', api.pullNodifications);
 
-app.get('/api/nodifications/cons/:id', api.pullAllNodifications);
+app.get('/api/nodifications/cons/:id', api.pullNodificationsByConsId);
 
 app.post('/api/nodifications', api.pushNodification);
+
+app.put('/api/nodifications', api.updateNodification);
+
 

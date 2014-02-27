@@ -6,7 +6,6 @@ exports.pushNodification = function(req, res) {
 	var nodification = new Nodification({
 		cons_id: req.body.cons_id,
 		task_id: req.body.task_id,
-		site_id: req.body.site_id,
 		title: req.body.title,
 		status: req.body.status,
 		description: req.body.description,
@@ -25,7 +24,7 @@ exports.pushNodification = function(req, res) {
 	});
 }
 
-exports.pullAllNodifications = function(req, res) {
+exports.pullNodifications = function(req, res) {
 	console.log("pullNodifications");
 	Nodification.find(function(err, nodifications) {
 		if(!err) {
@@ -46,3 +45,12 @@ exports.pullNodificationsByConsId = function(req, res) {
 		}
 	});
 }
+
+exports.updateNodification = function(req, res) {
+	console.log("updateNodification");
+	var conditions = {task_id: req.params.task_id}
+		, update = {$set: {status: req.params.status}}
+		, options = {upsert: true};
+	Nodification.update(conditions, update, options, function(err){});
+}
+
