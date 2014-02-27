@@ -24,9 +24,20 @@ exports.pushNodification = function(req, res) {
 	});
 }
 
-exports.pullNodifications = function(req, res) {
+exports.pullAllNodifications = function(req, res) {
 	console.log("pullNodifications");
 	Nodification.find(function(err, nodifications) {
+		if(!err) {
+			res.send(nodifications);
+		} else {
+			console.log(err);
+		}
+	});
+}
+
+exports.pullNodificationsByConsId = function(req, res) {
+	console.log("pullNodifications");
+	Nodification.find({cons_id: req.params.cons_id},function(err, nodifications) {
 		if(!err) {
 			res.send(nodifications);
 		} else {
