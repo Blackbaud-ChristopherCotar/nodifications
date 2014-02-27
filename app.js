@@ -40,6 +40,6 @@ app.get('/api/nodifications/cons/:id', api.pullNodificationsByConsId);
 
 app.post('/api/nodifications', api.pushNodification);
 
-app.put('/api/Nodification', api.updateNodification);
+app.put('/api/nodifications', api.updateNodification);
 
 
