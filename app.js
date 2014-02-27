@@ -36,10 +36,10 @@ app.get('/', function(req, res){
 
 app.get('/api/nodifications', api.pullNodifications);
 
-app.get('/api/nodifications/cons/:id', api.pullNodificationsByConsId);
+app.get('/api/nodifications/cons_id/:cons_id', api.pullNodificationsByConsId);
 
 app.post('/api/nodifications', api.pushNodification);
 
-app.put('/api/nodifications', api.updateNodification);
+app.put('/api/nodifications/task_id/:task_id', api.updateNodification);
 
 
