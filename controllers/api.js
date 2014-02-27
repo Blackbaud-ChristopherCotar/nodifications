@@ -16,6 +16,7 @@ exports.pushNodification = function(req, res) {
 
 	nodification.save(function(err) {
 		if(!err) {
+      res.status(201).send('nodification added to database successfully');
 			console.log("Push Successful!");
 		} else {
 			console.log(err);

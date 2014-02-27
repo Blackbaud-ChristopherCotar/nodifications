@@ -1,9 +1,8 @@
 var socket = io.connect('http://localhost');
-socket.on('news', function (data){
-  console.log(data);
-  socket.emit('my other event', {my: 'data'});
-});
 
-socket.on('notification', function(data){
+socket.emit('authenticate', {cons_id: '1234'});
+
+socket.on('allNodifications', function(data){
+  console.log('recieving nodifications');
   console.log(data);
 });
