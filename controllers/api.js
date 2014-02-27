@@ -1,4 +1,5 @@
 var Nodification = require('../models/nodificationModel.js');
+var io = require('../lib/sockets');
 
 exports.pushNodification = function(req, res) {
 	console.log("pushNodification: ");
@@ -51,6 +52,10 @@ exports.updateNodification = function(req, res) {
 	var conditions = {task_id: req.params.task_id}
 		, update = {$set: {status: req.body.status}}
 		, options = {upsert: true};
-	Nodification.update(conditions, update, options, function(err){});
+	Nodification.findOneAndUpdate(conditions, update, options, function(err, doc){
+    res.send('yay');
+    console.log(doc);
+    io.routeToClient(doc.cons_id, doc);
+  });
 }
 
