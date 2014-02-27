@@ -11,41 +11,23 @@ var express = require('express')
 
 
 mongoose.connect('mongodb://localhost/data/db');
-var db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback () {
-  console.log('DB connection successful!!!');
-});
-
-var nodificationSchema = new Schema({
-	cons_id:          String,
-	session_id:       String,
-	origin:           String,
-	destination_url:  String,
-	site_id:          String,
-	date:             Date
-});
-
-var nodification = mongoose.model('nodification', nodificationSchema);
-
-
-
-
-
 
 server.listen(process.env.PORT || 3000);
 
 app.configure(function(){
 	app.set('port', process.env.PORT || 3000);
 	app.use(express.static(__dirname + '/public'));
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(app.router);
+	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
+var api = require('./controllers/api.js');
 app.get('/', function(req, res){
   res.sendfile(__dirname + '/static/index.html');
 });
 
-app.get('/users', function(req, res){
-	console.log('api request for /users');
-	res.json({user1: ''});
-});
+app.get('/api/pullNodifications', api.pullNodifications);
+
+app.post('/api/pushNodification', api.pushNodification);
