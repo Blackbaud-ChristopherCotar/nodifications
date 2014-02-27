@@ -38,14 +38,29 @@ server.listen(process.env.PORT || 3000);
 
 app.configure(function(){
 	app.set('port', process.env.PORT || 3000);
+    app.use(express.bodyParser());
 	app.use(express.static(__dirname + '/public'));
 });
 
+// just a test function to show node is working
+// serves up a page with some socket.io comm
 app.get('/', function(req, res){
-  res.sendfile(__dirname + '/static/index.html');
+    res.sendfile(__dirname + '/static/index.html');
 });
 
-app.get('/users', function(req, res){
-	console.log('api request for /users');
-	res.json({user1: ''});
+
+
+/*
+ * REST API methods --shouldn't be too many--
+ */
+
+
+//
+// basic stub for comm with luminate online jersey client
+//
+// this method will create a nodification object for a specific task
+// using a JSON config object from Luminate
+app.post('/nodifications', function(req, res){
+	console.log('api post for /nodifications');
+
 });
