@@ -23,8 +23,6 @@ exports.pushNodification = function(req, res) {
 			console.log(err);
 		}		
 	});
-
-    io.routeToClient(nodification.cons_id, nodification);
 }
 
 exports.pullNodifications = function(req, res) {
