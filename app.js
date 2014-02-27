@@ -16,6 +16,7 @@ server.listen(process.env.PORT || 3000);
 
 app.configure(function(){
 	app.set('port', process.env.PORT || 3000);
+    app.use(express.bodyParser());
 	app.use(express.static(__dirname + '/public'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
@@ -23,11 +24,17 @@ app.configure(function(){
 	app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
+/*
+ * REST API methods --shouldn't be too many--
+ */
 var api = require('./controllers/api.js');
+// just a test function to show node is working
+// serves up a page with some socket.io comm
 app.get('/', function(req, res){
-  res.sendfile(__dirname + '/static/index.html');
+    res.sendfile(__dirname + '/static/index.html');
 });
 
 app.get('/api/pullNodifications', api.pullNodifications);
 
 app.post('/api/pushNodification', api.pushNodification);
+
