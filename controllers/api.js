@@ -24,7 +24,7 @@ exports.pushNodification = function(req, res) {
 	});
 }
 
-exports.pullAllNodifications = function(req, res) {
+exports.pullNodifications = function(req, res) {
 	console.log("pullNodifications");
 	Nodification.find(function(err, nodifications) {
 		if(!err) {
@@ -44,4 +44,16 @@ exports.pullNodificationsByConsId = function(req, res) {
 			console.log(err);
 		}
 	});
+}
+
+exports.updateNodification = function(req, res) {
+	console.log("updateNodification");
+	var conditions = {cons_id: req.params.cons_id, task_id: req.params.task_id}
+		, update = {$set: {status: req.params.status}}
+		, options = {upsert: true};
+	Nodification.update(conditions, update, options, callback);
+}
+
+function callback() {
+	//callback to socket io
 }

@@ -8,29 +8,5 @@
 		<h1>
 			Hello World!
 		</h1>
-
-		<script>
-			jQuery.post('/api/pushNodification', {
-				'cons_id': '1234',
-				'task_id': '5678',
-				'site_id': '1',
-				'title': 'Test',
-				'status': 'Completed',
-				'description': 'I Farted',
-				'origin_app': 'email',
-				'destination_url': 'url',
-				'date': '2/27/2014'
-			}, function (data, textStatus, jqXHR) {
-			    console.log('Post response:'); console.dir(data); console.log(textStatus); console.dir(jqXHR);
-			});
-
-
-			jQuery.get('/api/pullNodifications/', function (data, textStatus, jqXHR) {
-			    console.log('Get response:');
-			    console.dir(data);
-			    console.log(textStatus);
-			    console.dir(jqXHR);
-			});
-		</script>
 	</body>
 </html>
