@@ -48,7 +48,7 @@ exports.pullNodificationsByConsId = function(req, res) {
 
 exports.updateNodification = function(req, res) {
 	console.log("updateNodification");
-	var conditions = {cons_id: req.params.cons_id, task_id: req.params.task_id}
+	var conditions = {task_id: req.params.task_id}
 		, update = {$set: {status: req.params.status}}
 		, options = {upsert: true};
 	Nodification.update(conditions, update, options, callback);
