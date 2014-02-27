@@ -6,7 +6,6 @@ exports.pushNodification = function(req, res) {
 	var nodification = new Nodification({
 		cons_id: req.body.cons_id,
 		task_id: req.body.task_id,
-		site_id: req.body.site_id,
 		title: req.body.title,
 		status: req.body.status,
 		description: req.body.description,
@@ -51,9 +50,6 @@ exports.updateNodification = function(req, res) {
 	var conditions = {task_id: req.params.task_id}
 		, update = {$set: {status: req.params.status}}
 		, options = {upsert: true};
-	Nodification.update(conditions, update, options, callback);
+	Nodification.update(conditions, update, options, function(err){});
 }
 
-function callback() {
-	//callback to socket io
-}

@@ -4,7 +4,6 @@ var mongoose = require('mongoose')
 var nodificationSchema = new Schema({
 	cons_id:          Number,
 	task_id:          Number,
-	site_id:          Number,
 	title:            String,
 	status:           String,
 	description:      String,
