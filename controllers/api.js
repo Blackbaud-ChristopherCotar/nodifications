@@ -51,11 +51,12 @@ exports.updateNodification = function(req, res) {
 	console.log("updateNodification");
 	var conditions = {task_id: req.params.task_id}
 		, update = {$set: {status: req.body.status}}
-		, options = {upsert: true};
+		, options = {upsert: false};
 	Nodification.findOneAndUpdate(conditions, update, options, function(err, doc){
     res.send('yay');
     console.log(doc);
-    io.routeToClient(doc.cons_id, doc);
+    if(doc != null)
+      io.routeToClient(doc.cons_id, doc);
   });
 }
 

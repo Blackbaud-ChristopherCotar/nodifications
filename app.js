@@ -16,7 +16,7 @@ server.listen(process.env.PORT || 3000);
 
 app.configure(function(){
 	app.set('port', process.env.PORT || 3000);
-    app.use(express.bodyParser());
+  app.use(express.bodyParser());
 	app.use(express.static(__dirname + '/public'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
