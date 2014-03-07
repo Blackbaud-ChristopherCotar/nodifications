@@ -9,7 +9,8 @@ var userSettingsSchema = new Schema({
     showReports:      Boolean,
     showBlueprints:   Boolean,
     showGroups:       Boolean,
-    showErrorsOnly:   Boolean
+    showErrors:   	  Boolean,
+    showClippy: 	  Boolean 
 });
 
 module.exports = mongoose.model('UserSettings', userSettingsSchema);

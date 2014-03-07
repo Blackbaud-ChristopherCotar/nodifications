@@ -2,7 +2,7 @@ var io = require('../lib/sockets');
 var UserSettings = require('../models/userSettings.js');
 
 
-exports.updateUserSettings = function(socket, settings){
+exports.updateUserSettings = function(settings){
     console.log("updateUserSettings");
     var conditions = {cons_id: settings.cons_id }
         , update = {$set: {numResults      : settings.numResults,
@@ -11,27 +11,27 @@ exports.updateUserSettings = function(socket, settings){
                            showReports     : settings.showReports,
                            showBlueprints  : settings.showBlueprints,
                            showGroups      : settings.showGroups,
-                           showErrorsOnly  : settings.showErrorsOnly
+                           showErrors      : settings.showErrors,
+                           showClippy      : settings.showClippy
         }}
         , options = {upsert: true};
         UserSettings.findOneAndUpdate(conditions, update, options, function(err, doc){
-            exports.sendSettings(socket, doc.cons_id);
-            io.routeToClient(doc.cons_id, doc);
     });
 }
 
-function saveSettings(settings) {
-    var settings = new UserSettings({
+exports.saveSettings = function(settings) {
+    var settingsToSave = new UserSettings({
         cons_id: settings.cons_id,
         numResults: settings.numResults,
         showEmail: settings.showEmail,
         showReports: settings.showReports,
         showBlueprints: settings.showBlueprints,
         showGroups: settings.showGroups,
-        showErrorsOnly: settings.showErrorsOnly
+        showErrors: settings.showErrors,
+        showClippy: settings.showClippy
     });
 
-    settings.save(function(err) {
+    settingsToSave.save(function(err) {
         if(!err) {
             console.log("Saved Settings!");
         } else {
@@ -43,14 +43,14 @@ function saveSettings(settings) {
 
 exports.sendSettings = function (socket, cons_id){
 
-    UserSettings.find({cons_id: cons_id},function(err, settings) {0
+    UserSettings.find({cons_id: cons_id},function(err, settings) {
         if(err) {
             console.log(err);
         } else {
             if (!settings || settings.length == 0) {
                 settings = defaultSettings;
                 settings.cons_id = cons_id;
-                saveSettings(settings);
+                exports.saveSettings(settings);
             }
 
             socket.emit("applyUserSettings", settings);
@@ -60,10 +60,11 @@ exports.sendSettings = function (socket, cons_id){
 };
 
 
-var defaultSettings = {numResults      : 10,
-                           showEmail       : true,
-                           showReports     : true,
-                           showBlueprints  : true,
-                           showGroups      : true,
-                           showErrorsOnly  : false
-                         };
+var defaultSettings = { numResults      : 10,
+                        showEmail       : true,
+                        showReports     : true,
+                        showBlueprints  : true,
+                        showGroups      : true,
+                        showError       : false,
+                        showClippy      : false
+                      };

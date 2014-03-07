@@ -17,7 +17,7 @@ exports.pushNodification = function(req, res) {
 
 	nodification.save(function(err) {
 		if(!err) {
-      res.status(201).send('nodification added to database successfully');
+      		res.status(201).send('nodification added to database successfully');
 			console.log("Push Successful!");
 		} else {
 			console.log(err);
@@ -59,4 +59,22 @@ exports.updateNodification = function(req, res) {
       io.routeToClient(doc.cons_id, doc);
   });
 }
+
+exports.updateSettings = function(req, res) {
+	console.log("updateNodification");
+	var conditions = {cons_id: req.params.cons_id}
+		, update = {$set: {showEmail: req.body.showEmail,
+    showReports: req.body.showReports,
+    showBlueprints: req.body.showBlueprints,
+    showGroups: req.body.showGroups,
+    showErrors: req.body.showErrors, showClippy: req.body.showClippy}}
+		, options = {upsert: false};
+	Nodification.findOneAndUpdate(conditions, update, options, function(err, doc){
+    res.send('yay');
+    console.log(doc);
+    if(doc != null)
+      io.routeToClient(doc.cons_id, doc);
+  });
+}
+
 
