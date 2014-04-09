@@ -37,3 +37,20 @@ NodeJS
   socket
     - Chris, Kevin
   
+Installing NodeJs:
+
+Update Ubuntu packages and install the required dependencies:
+
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install gcc cpp g++ automake1.9 autoconf libtool flex bison python-software-properties
+
+Download the latest version of node.js from the official site, then extract the archive file and install node.js:
+
+cd /usr/local/src
+wget http://nodejs.org/dist/node-latest.tar.gz
+tar zxvf node-latest.tar.gz
+cd node-*
+./configure
+make
+sudo make install
